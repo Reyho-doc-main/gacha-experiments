@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # Base rates and constants
 # --------------------
 BASE_SIX_STAR_RATE = 0.008
-PITY_START = 66
+PITY_START = 65
 PITY_INCREMENT = 0.05
 MAX_PITY = 80
 
@@ -34,7 +34,7 @@ EXPERIMENTS = 10000
 # 6★ chance function with pity
 # --------------------
 def six_star_chance(pity):
-    if pity < PITY_START:
+    if pity <= PITY_START:
         return BASE_SIX_STAR_RATE
     return min(1.0, BASE_SIX_STAR_RATE + (pity - 65) * PITY_INCREMENT)
 
@@ -85,9 +85,7 @@ def run_experiment():
         # --- 240 guaranteed ---
         if pulls % RATE_UP_240 == 0:
             rate_up_count += 1
-            tickets_total += 0 # NO TICKETS GAINED FOR POTENTIAL TOKEN
-            six_star_pity = 0
-            five_star_pity = 0
+            tickets_total += 0 # NO TICKETS GAINED FOR POTENTIAL TOKEN, AS WELL AS NO PITY RESET
             if first_rate_up_pull is None:
                 first_rate_up_pull = pulls
                 tickets_at_first_rate_up = tickets_total
