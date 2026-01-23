@@ -47,6 +47,7 @@ def run_experiment():
     five_star_pity = 0
     rate_up_count = 0
     tickets_total = 0
+    tickets_at_120 = 0 
 
     first_rate_up_pull = None
     tickets_at_first_rate_up = None
@@ -69,10 +70,8 @@ def run_experiment():
                     else:
                         if first_rate_up_pull is None:
                             off_banner_before_first += 1
-                # 5-Star check (Base rate only)
                 elif free_roll < BASE_SIX_STAR_RATE + BASE_FIVE_STAR_RATE:
                     tickets_total += TICKETS_FIVE_STAR
-                # 4-Star
                 else:
                     tickets_total += TICKETS_FOUR_STAR
                             #Stop commenting here.
