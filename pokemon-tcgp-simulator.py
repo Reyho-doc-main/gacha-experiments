@@ -67,173 +67,92 @@ FourSilver_Card_pool = list(range(TARGET_4SILVER_CARDS))
 Crown_Card_pool = list(range(TARGET_CROWN_CARDS))
 ThreeStar_Card_pool = list(range(TARGET_3STAR_CARDS))
 
+def card_check(Card_pool, Card_set):
+    global Total_target_cards_Unique
+    card = random.choice(Card_pool)
+    if card not in Card_set:
+        Card_set.add(card)
+        Total_target_cards_Unique += 1
+
 def roll_regular_pack_plus_one():
     Fourth_card_roll = random.random()
     Fifth_card_roll = random.random()
     global Total_target_cards_Unique
-    #4 star roll
+    #4th card roll
     if Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN:
-        card = random.choice(Crown_Card_pool)
-        if card not in Crownset:
-            Crownset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Crown_Card_pool, Crownset)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY:
-        card = random.choice(Shiny2_Card_pool)
-        if card not in Shiny2set:
-            Shiny2set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny2_Card_pool, Shiny2set)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY:
-        card = random.choice(Shiny1_Card_pool)
-        if card not in Shiny1set:
-            Shiny1set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny1_Card_pool, Shiny1set)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY + REG_PACK_FOURTH_CARD_3STAR:
-        card = random.choice(ThreeStar_Card_pool)
-        if card not in ThreeStarset:
-            ThreeStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(ThreeStar_Card_pool, ThreeStarset)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY + REG_PACK_FOURTH_CARD_3STAR + REG_PACK_FOURTH_CARD_2STAR:
-        card = random.choice(TwoStar_Card_pool)
-        if card not in TwoStarset:
-            TwoStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(TwoStar_Card_pool, TwoStarset)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY + REG_PACK_FOURTH_CARD_3STAR + REG_PACK_FOURTH_CARD_2STAR + REG_PACK_FOURTH_CARD_4SILVER:
-        card = random.choice(FourSilver_Card_pool)
-        if card not in FourSilverset:
-            FourSilverset.add(card)
-            Total_target_cards_Unique += 1
-    #5 star roll
+        card_check(FourSilver_Card_pool, FourSilverset)
+    #5th card roll
     if Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN:
-        card = random.choice(Crown_Card_pool)
-        if card not in Crownset:
-            Crownset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Crown_Card_pool, Crownset)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY:
-        card = random.choice(Shiny2_Card_pool)
-        if card not in Shiny2set:
-            Shiny2set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny2_Card_pool, Shiny2set)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY:
-        card = random.choice(Shiny1_Card_pool)
-        if card not in Shiny1set:
-            Shiny1set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny1_Card_pool, Shiny1set)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY + REG_PACK_FIFTH_CARD_3STAR:
-        card = random.choice(ThreeStar_Card_pool)
-        if card not in ThreeStarset:
-            ThreeStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(ThreeStar_Card_pool, ThreeStarset)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY + REG_PACK_FIFTH_CARD_3STAR + REG_PACK_FIFTH_CARD_2STAR:
-        card = random.choice(TwoStar_Card_pool)
-        if card not in TwoStarset:
-            TwoStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(TwoStar_Card_pool, TwoStarset)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY + REG_PACK_FIFTH_CARD_3STAR + REG_PACK_FIFTH_CARD_2STAR + REG_PACK_FIFTH_CARD_4SILVER:
-        card = random.choice(FourSilver_Card_pool)
-        if card not in FourSilverset:
-            FourSilverset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(FourSilver_Card_pool, FourSilverset)
+        #Nothing of interest happens afterwards, as there are rarities that we dont count (thus probabilities do not add up to 1.)
+        #This is the same for packs below.
 
 def roll_one_rare_pack_card():
     rare_pack_roll = random.random()
     global Total_target_cards_Unique
     if rare_pack_roll < RARE_PACK_CARD_CROWN:
-        card = random.choice(Crown_Card_pool)
-        if card not in Crownset:
-            Crownset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Crown_Card_pool, Crownset)
     elif rare_pack_roll < RARE_PACK_CARD_CROWN + RARE_PACK_CARD_2SHINY:
-        card = random.choice(Shiny2_Card_pool)
-        if card not in Shiny2set:
-            Shiny2set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny2_Card_pool, Shiny2set)
     elif rare_pack_roll < RARE_PACK_CARD_CROWN + RARE_PACK_CARD_2SHINY + RARE_PACK_CARD_SHINY:
-        card = random.choice(Shiny1_Card_pool)
-        if card not in Shiny1set:
-            Shiny1set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny1_Card_pool, Shiny1set)
     elif rare_pack_roll < RARE_PACK_CARD_CROWN + RARE_PACK_CARD_2SHINY + RARE_PACK_CARD_SHINY + RARE_PACK_CARD_3STAR:
-        card = random.choice(ThreeStar_Card_pool)
-        if card not in ThreeStarset:
-            ThreeStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(ThreeStar_Card_pool, ThreeStarset)
     elif rare_pack_roll < RARE_PACK_CARD_CROWN + RARE_PACK_CARD_2SHINY + RARE_PACK_CARD_SHINY + RARE_PACK_CARD_3STAR + RARE_PACK_CARD_2STAR:
-        card = random.choice(TwoStar_Card_pool)
-        if card not in TwoStarset:
-            TwoStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(TwoStar_Card_pool, TwoStarset)
     elif rare_pack_roll < RARE_PACK_CARD_CROWN + RARE_PACK_CARD_2SHINY + RARE_PACK_CARD_SHINY + RARE_PACK_CARD_3STAR + RARE_PACK_CARD_2STAR + RARE_PACK_CARD_4SILVER:
-        card = random.choice(FourSilver_Card_pool)
-        if card not in FourSilverset:
-            FourSilverset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(FourSilver_Card_pool, FourSilverset)
 
 def roll_regular_pack():
     Fourth_card_roll = random.random()
     Fifth_card_roll = random.random()
-    global Total_target_cards_Unique, Shiny2set, Shiny1set, TwoStarset, FourSilverset, Crownset, ThreeStarset
-    #4 star roll
+    global Total_target_cards_Unique
+    #4th card roll
     if Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN:
-        card = random.choice(Crown_Card_pool)
-        if card not in Crownset:
-            Crownset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Crown_Card_pool, Crownset)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY:
-        card = random.choice(Shiny2_Card_pool)
-        if card not in Shiny2set:
-            Shiny2set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny2_Card_pool, Shiny2set)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY:
-        card = random.choice(Shiny1_Card_pool)
-        if card not in Shiny1set:
-            Shiny1set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny1_Card_pool, Shiny1set)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY + REG_PACK_FOURTH_CARD_3STAR:
-        card = random.choice(ThreeStar_Card_pool)
-        if card not in ThreeStarset:
-            ThreeStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(ThreeStar_Card_pool, ThreeStarset)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY + REG_PACK_FOURTH_CARD_3STAR + REG_PACK_FOURTH_CARD_2STAR:
-        card = random.choice(TwoStar_Card_pool)
-        if card not in TwoStarset:
-            TwoStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(TwoStar_Card_pool, TwoStarset)
     elif Fourth_card_roll < REG_PACK_FOURTH_CARD_CROWN + REG_PACK_FOURTH_CARD_2SHINY + REG_PACK_FOURTH_CARD_SHINY + REG_PACK_FOURTH_CARD_3STAR + REG_PACK_FOURTH_CARD_2STAR + REG_PACK_FOURTH_CARD_4SILVER:
-        card = random.choice(FourSilver_Card_pool)
-        if card not in FourSilverset:
-            FourSilverset.add(card)
-            Total_target_cards_Unique += 1
-    #5 star roll
+        card_check(FourSilver_Card_pool, FourSilverset)
+    #5th card roll
     if Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN:
-        card = random.choice(Crown_Card_pool)
-        if card not in Crownset:
-            Crownset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Crown_Card_pool, Crownset)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY:
-        card = random.choice(Shiny2_Card_pool)
-        if card not in Shiny2set:
-            Shiny2set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny2_Card_pool, Shiny2set)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY:
-        card = random.choice(Shiny1_Card_pool)
-        if card not in Shiny1set:
-            Shiny1set.add(card)
-            Total_target_cards_Unique += 1
+        card_check(Shiny1_Card_pool, Shiny1set)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY + REG_PACK_FIFTH_CARD_3STAR:
-        card = random.choice(ThreeStar_Card_pool)
-        if card not in ThreeStarset:
-            ThreeStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(ThreeStar_Card_pool, ThreeStarset)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY + REG_PACK_FIFTH_CARD_3STAR + REG_PACK_FIFTH_CARD_2STAR:
-        card = random.choice(TwoStar_Card_pool)
-        if card not in TwoStarset:
-            TwoStarset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(TwoStar_Card_pool, TwoStarset)
     elif Fifth_card_roll < REG_PACK_FIFTH_CARD_CROWN + REG_PACK_FIFTH_CARD_2SHINY + REG_PACK_FIFTH_CARD_SHINY + REG_PACK_FIFTH_CARD_3STAR + REG_PACK_FIFTH_CARD_2STAR + REG_PACK_FIFTH_CARD_4SILVER:
-        card = random.choice(FourSilver_Card_pool)
-        if card not in FourSilverset:
-            FourSilverset.add(card)
-            Total_target_cards_Unique += 1
+        card_check(FourSilver_Card_pool, FourSilverset)
 
 # --------------------
 # Run a single experiment
@@ -257,7 +176,7 @@ def run_experiment():
         roll = random.random()
         if roll < RARE_PACK_CHANCE:
             for _ in range(5):
-                roll_one_rare_pack_card()
+                roll_one_rare_pack_card()  #5 cards in a rare pack, so we do it 5 times
         elif roll < RARE_PACK_CHANCE + REGULAR_PACKPLUSONE_CHANCE:
             roll_regular_pack_plus_one()
         else:
