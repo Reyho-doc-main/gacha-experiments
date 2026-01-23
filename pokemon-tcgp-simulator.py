@@ -1,11 +1,9 @@
 import random
 import numpy as np
-import statistics
 import matplotlib.pyplot as plt
 
 #Do note that this simulator assumes you are only pulling from the latest set of booster packs. (Last Updated: Secluded Springs)
-#If you are pulling from older packs, the rates will be different.
-#This does not include any Pack Points or Pack Point Exchange mechanics. (It is 5 pack points per pack)
+#If you are pulling from older packs, the rates will be different. This does account for pack points tho.
 #This only calculates Chances of getting:
 # - Crown
 # - Shiny x2
@@ -55,8 +53,10 @@ TARGET_SHINY_CARDS = 10
 TARGET_3STAR_CARDS = 1
 TARGET_2STAR_CARDS = 12
 TARGET_4SILVER_CARDS = 5
+PACK_POINT_FOR_EACH_RARITY = [2500, 1350, 1000, 1500, 1250, 500]
 TOTAL_TARGET_CARDS = (TARGET_CROWN_CARDS + TARGET_SHINY2_CARDS + TARGET_SHINY_CARDS + TARGET_3STAR_CARDS + TARGET_2STAR_CARDS + TARGET_4SILVER_CARDS)
-EXPERIMENTS = 7000
+TARGET_CARD_LIST = [TARGET_CROWN_CARDS, TARGET_SHINY2_CARDS, TARGET_SHINY_CARDS, TARGET_3STAR_CARDS, TARGET_2STAR_CARDS, TARGET_4SILVER_CARDS]
+EXPERIMENTS = 3
 Total_target_cards_Unique = 0
 
 #Helper functions
@@ -73,6 +73,13 @@ def card_check(Card_pool, Card_set):
     if card not in Card_set:
         Card_set.add(card)
         Total_target_cards_Unique += 1
+
+def pack_points_needed(CARD_LIST, card_set_list, PACK_POINT_LIST):
+    pack_point_needed = 0
+    for index, value in enumerate(CARD_LIST):
+        missing_cards = value - len(card_set_list[index])
+        pack_point_needed += missing_cards*PACK_POINT_LIST[index]
+    return pack_point_needed
 
 def roll_regular_pack_plus_one():
     Fourth_card_roll = random.random()
@@ -162,17 +169,20 @@ def run_experiment():
     global Total_target_cards_Unique, Shiny2set, Shiny1set, TwoStarset, FourSilverset, Crownset, ThreeStarset
     Total_target_cards_Unique = 0
     pulls_done = 0
+    pack_points = 0
+    Crownset = set()
     Shiny2set = set()
     Shiny1set = set()
+    ThreeStarset = set()
     TwoStarset = set()
     FourSilverset = set()
-    Crownset = set()
-    ThreeStarset = set()
+    set_list = [Crownset, Shiny2set, Shiny1set, ThreeStarset, TwoStarset, FourSilverset]
 
     while Total_target_cards_Unique < int(TOTAL_TARGET_CARDS):
         if pulls_done == 10000:  #To prevent infinite loops in extreme cases
             break
         pulls_done += 1
+        pack_points += 5
         roll = random.random()
         if roll < RARE_PACK_CHANCE:
             for _ in range(5):
@@ -181,15 +191,20 @@ def run_experiment():
             roll_regular_pack_plus_one()
         else:
             roll_regular_pack()
+        if pack_points >= pack_points_needed(TARGET_CARD_LIST, set_list, PACK_POINT_FOR_EACH_RARITY):
+            break
+
     # Debugging Check (uncomment to use, make sure to set experiments to a lower value)
     # print("collected:", {
-    #     "crown": Crownset,
-    #     "shiny2": Shiny2set,
-    #     "shiny1": Shiny1set,
-    #     "2star": TwoStarset,
-    #     "4silver": FourSilverset,
-    #     "3star": ThreeStarset
-    # }, "pulls:", pulls_done)
+    #     "crown": f"{len(Crownset)}/{TARGET_CROWN_CARDS}",
+    #     "shiny2": f"{len(Shiny2set)}/{TARGET_SHINY2_CARDS}",
+    #     "shiny1": f"{len(Shiny1set)}/{TARGET_SHINY_CARDS}",
+    #     "3star": f"{len(ThreeStarset)}/{TARGET_3STAR_CARDS}",
+    #     "2star": f"{len(TwoStarset)}/{TARGET_2STAR_CARDS}",
+    #     "4silver": f"{len(FourSilverset)}/{TARGET_4SILVER_CARDS}",
+    # }, "pulls:", pulls_done, "pack_points:", pack_points)
+    #You have to manually calculate if the missing cards can be bought by pack points, im too lazy to do that
+
     return pulls_done
 
 
