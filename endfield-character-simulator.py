@@ -66,6 +66,15 @@ def run_experiment():
                         if first_rate_up_pull is None:
                             first_rate_up_pull = pulls
                             tickets_at_first_rate_up = tickets_total 
+                    else:
+                        if first_rate_up_pull is None:
+                            off_banner_before_first += 1
+                # 5-Star check (Base rate only)
+                elif free_roll < BASE_SIX_STAR_RATE + BASE_FIVE_STAR_RATE:
+                    tickets_total += TICKETS_FIVE_STAR
+                # 4-Star
+                else:
+                    tickets_total += TICKETS_FOUR_STAR
                             #Stop commenting here.
         if pulls == 120:
             tickets_at_120 = tickets_total
