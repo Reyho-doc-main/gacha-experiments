@@ -55,6 +55,18 @@ def run_experiment():
 
     while rate_up_count < TARGET_RATE_UPS:
         pulls += 1
+        #New at 30 pull free 10 pull feature. Note this is only for seasonal banners, comment out the code if needed
+        if pulls == 30:
+            for _ in range(10):
+                free_roll = random.random()
+                if free_roll < BASE_SIX_STAR_RATE:
+                    tickets_total += TICKETS_SIX_STAR
+                    if random.random() < 0.5:
+                        rate_up_count += 1
+                        if first_rate_up_pull is None:
+                            first_rate_up_pull = pulls
+                            tickets_at_first_rate_up = tickets_total 
+                            #Stop commenting here.
         if pulls == 120:
             tickets_at_120 = tickets_total
         six_star_pity += 1
