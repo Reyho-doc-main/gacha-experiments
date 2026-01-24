@@ -179,14 +179,14 @@ def run_experiment():
     set_list = [Crownset, Shiny2set, Shiny1set, ThreeStarset, TwoStarset, FourSilverset]
 
     while Total_target_cards_Unique < int(TOTAL_TARGET_CARDS):
-        if pulls_done == 10000:  #To prevent infinite loops in extreme cases
+        if pulls_done == 10000:  #To prevent infinite loops when pack points were not added, now to just ensure code can run if code breaks
             break
         pulls_done += 1
         pack_points += 5
         roll = random.random()
         if roll < RARE_PACK_CHANCE:
             for _ in range(5):
-                roll_one_rare_pack_card()  #5 cards in a rare pack, so we do it 5 times
+                roll_one_rare_pack_card()  #5 cards in a rare pack, so we roll for a card 5 times
         elif roll < RARE_PACK_CHANCE + REGULAR_PACKPLUSONE_CHANCE:
             roll_regular_pack_plus_one()
         else:
@@ -223,7 +223,7 @@ def main():
     print("========== RESULTS ==========")
     print(f"Experiments run: {EXPERIMENTS}")
     print(f"Minimum pulls to get every card in the set: {min(total_pulls_list)}")
-    print(f"Maximum pulls to get every card in the set(can be infinite, limted to 10 000): {max(total_pulls_list)}")
+    print(f"Maximum pulls to get every card in the set(limted to 10 000 in case code breaks): {max(total_pulls_list)}")
     print(f"Average pulls to get every card in the set: {np.mean(total_pulls_list):.2f}")
     print(f"5th percentile pulls: {np.percentile(total_pulls_list,5):.0f}")
     print(f"95th percentile pulls: {np.percentile(total_pulls_list,95):.0f}\n")
