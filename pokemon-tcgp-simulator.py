@@ -236,10 +236,7 @@ def main():
     plt.hist(total_pulls_list, bins=50)
     plt.xlabel("Total Pulls")
     plt.ylabel("Frequency")
-    plt.title(
-    "Pulls needed to get every card in the set "
-    "(excluding Gold 1 Star Cards, 3-1 Silver Cards, and Pack Point Calculation)"
-    )
+    plt.title("Pulls needed to get every card in the set ")
     plt.grid(True)
     plt.show()
 
